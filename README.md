@@ -1,6 +1,6 @@
-#Automated Deployment and Configuration Management of a Linux Web Server on Azure using Ansible and Terraform
+# Automated🤖 Deployment and Configuration Management of a Linux Web Server🖥️ on Azure☁️ using Ansible and Terraform
 
-##Introduction:
+## Introduction:
 
 - This project focuses on building and maintaining a configuration management system using Ansible and Terraform to provision a Linux VM on Azure. The goal of this project is to automate the deployment and configuration of a Linux web server on Azure, making it easier to manage and scale the system. The target audience for this project is system administrators and IT professionals who are responsible for deploying and maintaining web servers on cloud platforms.
 
@@ -8,20 +8,20 @@
 
 - This project assumes that the user has an Azure subscription, and has access to Azure resources and permissions to provision resources. Additionally, the user should have a basic knowledge of Ansible and Terraform and should have them installed on the local machine.
 
-##Architecture:
+## Architecture:
 
-##Tools and Technologies:
+## Tools and Technologies:
 
-##Setup and Installation: 
+## Setup and Installation: 
 
-##Configuration Management using Ansible: 
+## Configuration Management using Ansible: 
 
-##Provisioning a Linux VM on Azure using Terraform: 
+## Provisioning a Linux VM on Azure using Terraform: 
 
-##Execution and Deployment: 
+## Execution and Deployment: 
 
-##Maintenance and Updates: 
+## Maintenance and Updates: 
 
-##Troubleshooting: A list of common issues and error messages, along with instructions for resolving them.
+## Troubleshooting: A list of common issues and error messages, along with instructions for resolving them.
 
-##Conclusion: A summary of the project and its results, along with any future work or improvements that can be made.
+## Conclusion: A summary of the project and its results, along with any future work or improvements that can be made.
