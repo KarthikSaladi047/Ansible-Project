@@ -1,4 +1,4 @@
-# Automated Deployment and Configuration Management of a <img src="https://github.com/devicons/devicon/blob/master/icons/linux/linux-original.svg" title="linuxlinux" alt="linux" width="40" height="40"/>&nbsp; Web Server on <img src="https://github.com/devicons/devicon/blob/master/icons/azure/azure-original.svg" title="azure" alt="azure" width="40" height="40"/>&nbsp;using <img src="https://github.com/devicons/devicon/blob/master/icons/ansible/ansible-original-wordmark.svg"  title="ansibleansible" alt="ansible" width="40" height="40"/>&nbsp; and <img src="https://github.com/devicons/devicon/blob/master/icons/terraform/terraform-original.svg" title="terraform" alt="terraform" width="40" height="40"/>&nbsp;
+# Automated Deployment and Configuration Management of a Apache Web Server on Azure using Ansible and Terraform
 
 ## Introduction:
 
@@ -41,15 +41,93 @@ This project uses the following tools and technologies:
 These tools and technologies are widely used in the industry and are well-documented, making it easy to find resources and tutorials for learning and troubleshooting.
 
 ## Setup and Installation: 
+
+**Install Terraform** : To install Terraform, you will need to download the appropriate package for your operating system from the Terraform website. Once you have downloaded the package, you can install Terraform using the package manager of your choice or by following the instructions provided in the Terraform documentation.(here my local machine is Ubuntu:20.04)
+  ```
+  wget https://releases.hashicorp.com/terraform/0.15.5/terraform_0.15.5_linux_amd64.zip
+  unzip terraform_0.15.5_linux_amd64.zip
+  sudo mv terraform /usr/local/bin/
+  ```
+**Install Ansible**: To begin using Ansible as a means of managing our server infrastructure, we need to install the Ansible software on the machine that will serve as the Ansible control node. run the following command to include the official project’s PPA (personal package archive) in your system’s list of sources, Refresh your system’s package index, then we can install the Ansible software.
+  ```
+  sudo apt-add-repository ppa:ansible/ansible
+  sudo apt update
+  sudo apt install ansible
+  ```
+## Provisioning a Linux VM on Azure using Terraform:
 ```
-wget https://releases.hashicorp.com/terraform/0.15.5/terraform_0.15.5_linux_amd64.zip
-unzip terraform_0.15.5_linux_amd64.zip
-sudo mv terraform /usr/local/bin/
-```
-```
-sudo apt-add-repository ppa:ansible/ansible
-sudo apt update
-sudo apt install ansible
+terraform {
+  required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = "3.40.0"
+    }
+  }
+}
+
+provider "azurerm" {
+  # Configuration options
+}
+
+resource "azurerm_resource_group" "rg" {
+  name     = "myResourceGroup"
+  location = "East US"
+}
+
+resource "azurerm_virtual_network" "vnet" {
+  name                = "myVnet"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
+resource "azurerm_subnet" "subnet" {
+  name                 = "mySubnet"
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefix       = "10.0.1.0/24"
+}
+
+resource "azurerm_network_interface" "nic" {
+  name                = "myNIC"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  ip_configuration {
+    name                          = "myIPConfig"
+    subnet_id                     = azurerm_subnet.subnet.id
+    private_ip_address_allocation = "dynamic"
+  }
+}
+
+resource "azurerm_linux_virtual_machine" "vm" {
+  name                  = "myVM"
+  location              = azurerm_resource_group.rg.location
+  resource_group_name   = azurerm_resource_group.rg.name
+  network_interface_ids = [azurerm_network_interface.nic.id]
+  vm_size               = "Standard
+  
+  admin_ssh_key {
+    username   = "adminuser"
+    public_key = file("~/.ssh/id_rsa.pub")
+  }
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "22.04-LTS"
+    version   = "latest"
+  }
+  
+  provisioner "local-exec" {
+    command = "ansible-playbook -i '${azurerm_linux_virtual_machine.vm.private_ip},' playbook.yml"
+  }
+}
 ```
 ## Configuration Management using Ansible:
 ```
@@ -81,87 +159,6 @@ sudo apt install ansible
       shell: curl http://localhost
 ```
 
-## Provisioning a Linux VM on Azure using Terraform:
-```
-provider "azurerm" {
-  version = "=2.23.0"
-  features {}
-}
-
-resource "azurerm_resource_group" "rg" {
-  name     = "myResourceGroup"
-  location = "westus2"
-}
-
-resource "azurerm_virtual_network" "vnet" {
-  name                = "myVnet"
-  address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-}
-
-resource "azurerm_subnet" "subnet" {
-  name                 = "mySubnet"
-  resource_group_name  = azurerm_resource_group.rg.name
-  virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefix       = "10.0.1.0/24"
-}
-
-resource "azurerm_network_interface" "nic" {
-  name                = "myNIC"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-
-  ip_configuration {
-    name                          = "myIPConfig"
-    subnet_id                     = azurerm_subnet.subnet.id
-    private_ip_address_allocation = "dynamic"
-  }
-}
-
-resource "azurerm_storage_account" "sa" {
-  name                     = "mystorageaccount"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
-
-resource "azurerm_storage_container" "container" {
-  name                  = "mycontainer"
-  storage_account_name  = azurerm_storage_account.sa.name
-  container_access_type = "private"
-}
-
-resource "azurerm_linux_virtual_machine" "vm" {
-  name                  = "myVM"
-  location              = azurerm_resource_group.rg.location
-  resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = [azurerm_network_interface.nic.id]
-  vm_size               = "Standard
-  
-  admin_ssh_key {
-    username   = "adminuser"
-    public_key = file("~/.ssh/id_rsa.pub")
-  }
-
-  os_disk {
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
-  }
-
-  source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "16.04-LTS"
-    version   = "latest"
-  }
-  
-  provisioner "local-exec" {
-    command = "ansible-playbook -i '${azurerm_linux_virtual_machine.vm.private_ip},' playbook.yml"
-  }
-}
-```
 ## Execution and Deployment: 
 
 ## Maintenance and Updates: 
