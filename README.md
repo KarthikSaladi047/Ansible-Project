@@ -260,7 +260,9 @@ The playbook is divided into several tasks.
 
 - The fourth task opens port 80 on the host's firewall using the firewalld module. It also sets the service to "http" and makes the change permanent.
 
-- The fifth task restarts the firewall service to apply the changes. The sixth task uses the shell module to check the status of the Apache service.
+- The fifth task restarts the firewall service to apply the changes.
+
+- The sixth task uses the shell module to check the status of the Apache service.
 
 - The seventh task uses the shell module to check if the HTML page is served properly by curling to localhost.
 
