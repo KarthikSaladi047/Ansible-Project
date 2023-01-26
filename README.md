@@ -55,6 +55,7 @@ These tools and technologies are widely used in the industry and are well-docume
   sudo apt install ansible
   ```
 ## Provisioning a Linux VM on Azure using Terraform:
+This is a Terraform configuration file that creates resources in Azure using the Azure Resource Manager (azurerm) provider. The resources being created include a resource group, virtual network, subnet, network security group, public IP, network interface, and a Linux virtual machine.
 ```
 terraform {
   required_providers {
@@ -88,6 +89,47 @@ resource "azurerm_subnet" "subnet" {
   address_prefix       = "10.0.1.0/24"
 }
 
+resource "azurerm_network_security_group" "secure_grp" {
+  name                = "securitygroup"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  security_rule {
+    name                       = "SSH"
+    priority                   = 300
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+  security_rule {
+    name                       = "HTTP"
+    priority                   = 400
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "80"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+}
+
+resource "azurerm_subnet_network_security_group_association" "secure_grp_assos" {
+  subnet_id                 = azurerm_subnet.subnet.id
+  network_security_group_id = azurerm_network_security_group.secure_grp.id
+}
+
+resource "azurerm_public_ip" "pub_ip" {
+  name                = "publicip"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  allocation_method   = "Static"
+
+}
 resource "azurerm_network_interface" "nic" {
   name                = "myNIC"
   location            = azurerm_resource_group.rg.location
@@ -97,19 +139,38 @@ resource "azurerm_network_interface" "nic" {
     name                          = "myIPConfig"
     subnet_id                     = azurerm_subnet.subnet.id
     private_ip_address_allocation = "dynamic"
+    public_ip_address_id = azurerm_public_ip.pub_ip.id
   }
 }
 
+
+resource "tls_private_key" "tls" {
+  algorithm = "RSA"
+}
+
+resource "local_file" "private_key" {
+  content  = tls_private_key.tls.private_key
+  filename = "private_rsa"
+}
+
+resource "local_file" "public_key" {
+  content  = tls_private_key.tls.public_key_openssh
+  filename = "public_rsa.pub"
+}
+
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                  = "myVM"
-  location              = azurerm_resource_group.rg.location
-  resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = [azurerm_network_interface.nic.id]
-  vm_size               = "Standard
-  
+  name                = "linux-machine"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  size                = "Standard_F2"
+  admin_username      = "adminuser"
+  network_interface_ids = [
+    azurerm_network_interface.nic.id,
+  ]
+
   admin_ssh_key {
     username   = "adminuser"
-    public_key = file("~/.ssh/id_rsa.pub")
+    public_key = tls_private_key.tls.public_key_openssh
   }
 
   os_disk {
@@ -123,41 +184,85 @@ resource "azurerm_linux_virtual_machine" "vm" {
     sku       = "22.04-LTS"
     version   = "latest"
   }
-  
+}
+
+resource "null_resource" "ansible" {
   provisioner "local-exec" {
-    command = "ansible-playbook -i '${azurerm_linux_virtual_machine.vm.private_ip},' playbook.yml"
+    command = "ansible-playbook -i '${azurerm_linux_virtual_machine.vm.public_ip_address},' playbook.yaml --private-key=private_rsa"
   }
 }
 ```
+- The code first sets the version of the azurerm provider to be used, and then configures the provider with options.
+
+- The code then creates an Azure resource group named "myResourceGroup" in the East US location.
+
+- Next, it creates a virtual network named "myVnet" with an address space of "10.0.0.0/16" and associates it with the previously created resource group.
+
+- Then, it creates a subnet named "mySubnet" within the virtual network and assigns it the address prefix "10.0.1.0/24".
+
+- The code then creates a network security group named "securitygroup" and associates it with the resource group. The security group has two rules, one for allowing inbound SSH traffic and the other for allowing inbound HTTP traffic.
+
+- The code creates a subnet_network_security_group_association to associate the subnet with the security group.
+
+- The code creates a public IP address object named "publicip" and associates it with the resource group.
+
+- The code creates a network interface card (NIC) named "myNIC" and associates it with the resource group, subnet and public IP address.
+
+- The code then creates a private and public key pair using the tls_private_key resource, and writes the private key to a file named "private_rsa" and the public key to a file named "public_rsa.pub".
+
+- Finally, the code creates a Linux virtual machine named "linux-machine" in the resource group, and associates it with the previously created NIC, and sets admin_username and admin_ssh_key to access the virtual machine. The virtual machine uses UbuntuServer 22.04-LTS as an image.
+
+- There is also a null_resource named "ansible" that runs an ansible-playbook command on the local machine that connects to the virtual machine using the public IP address, the private key and a playbook file named "playbook.yaml"
+
 ## Configuration Management using Ansible:
 ```
-- name: Install and configure Nginx
+---
+- name: Install and configuring Apache web server  
   hosts: all
   become: true
   tasks:
-    - name: Install Nginx
-      apt: pkg=nginx state=installed update_cache=true
-
-    - name: Start Nginx
-      service: name=nginx state=started enabled=true
-
-    - name: Copy HTML file
-      copy: src=index.html dest=/var/www/html/index.html
-      
-- name: Verify Nginx is running
-  hosts: all
-  become: true
-  tasks:
-    - name: Check Nginx status
-      shell: systemctl status nginx
-
-- name: Verify HTML page is served
-  hosts: all
-  become: true
-  tasks:
-    - name: curl to check if HTML page is served
+  - name: Install Apache web server
+    apt:
+      name: apache2
+      state: latest
+  - name: Copy HTML file to server
+    copy:
+      src: web-page/*
+      dest: /var/www/html/
+  - name: Enable Apache service
+    service:
+      name: apache2
+      state: started
+      enabled: true
+  - name: Open port 80
+    firewalld:
+      service: http
+      state: enabled
+      permanent: true
+  - name: Restart Firewall
+    service:
+      name: firewall
+      state: restarted
+  - name: Check Apache status
+      shell: systemctl status apache2
+  - name: curl to check if HTML page is served
       shell: curl http://localhost
 ```
+This is a playbook written in YAML for Ansible. It is used to automate the installation and configuration of Apache web server on a target host or hosts.
+
+The playbook is divided into several tasks.
+
+- The first task installs the Apache web server package using the apt module, which is used to manage packages on Ubuntu and Debian systems.
+
+- The second task copies the contents of a directory called "web-page" to the /var/www/html/ directory on the target host. This is where Apache serves web pages by default.
+
+- The third task uses the service module to start the Apache service and enable it to start automatically at boot time.
+
+- The fourth task opens port 80 on the host's firewall using the firewalld module. It also sets the service to "http" and makes the change permanent.
+
+- The fifth task restarts the firewall service to apply the changes. The sixth task uses the shell module to check the status of the Apache service.
+
+- The seventh task uses the shell module to check if the HTML page is served properly by curling to localhost.
 
 ## Execution and Deployment: 
 
