@@ -2,11 +2,11 @@
 
 ## Introduction:
 
-- This project focuses on building and maintaining a configuration management system using Ansible and Terraform to provision a Linux VM on Azure. The goal of this project is to automate the deployment and configuration of a Linux web server on Azure, making it easier to manage and scale the system. The target audience for this project is system administrators and IT professionals who are responsible for deploying and maintaining web servers on cloud platforms.
+- ***This project focuses on building and maintaining a configuration management system using Ansible and Terraform to provision a Linux VM on Azure. The goal of this project is to automate the deployment and configuration of a Linux web server on Azure, making it easier to manage and scale the system.***
 
-- The system architecture includes a Linux VM on Azure as the primary server, and Ansible as the configuration management tool. Terraform is used to provision the Linux VM on Azure. The system is designed to be highly available, secure, and easily scalable. The system is deployed on Azure and all the dependencies are handled by Terraform. The system can be updated and maintained using the Ansible playbooks.
+- ***The system architecture includes a Linux VM on Azure as the primary server, and Ansible as the configuration management tool. Terraform is used to provision the Linux VM on Azure. The system is designed to be highly available, secure, and easily scalable. The system is deployed on Azure and all the dependencies are handled by Terraform. The system can be updated and maintained using the Ansible playbooks.***
 
-- This project assumes that the user has an Azure subscription, and has access to Azure resources and permissions to provision resources. Additionally, the user should have a basic knowledge of Ansible and Terraform and should have them installed on the local machine.
+- ***This project assumes that the user has an Azure subscription, and has access to Azure resources and permissions to provision resources. Additionally, the user should have a basic knowledge of Ansible and Terraform and should have them installed on the local machine.***
 
 ## Architecture:
 The overall architecture of this project consists of three main components:
