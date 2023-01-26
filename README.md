@@ -1,4 +1,4 @@
-# Automated Deployment and Configuration Management of a Apache Web Server on Azure using Ansible and Terraform
+# Automated Deployment and Configuration Management of a <img src="https://github.com/devicons/devicon/blob/master/icons/apache/apache-original-wordmark.svg" title="apache" alt="apache" width="40" height="40"/> Web Server on <img src="https://github.com/devicons/devicon/blob/master/icons/azure/azure-original.svg" title="azure" alt="azure" width="40" height="40"/> using <img src="https://github.com/devicons/devicon/blob/master/icons/ansible/ansible-original-wordmark.svg"  title="ansible" alt="ansible" width="40" height="40"/> and <img src="https://github.com/devicons/devicon/blob/master/icons/terraform/terraform-original.svg" title="terraform" alt="terraform" width="40" height="40"/>
 
 ## Introduction:
 
