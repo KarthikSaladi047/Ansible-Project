@@ -1,4 +1,4 @@
-# Automated🤖 Deployment and Configuration Management of a Linux Web Server🖥️ on Azure☁️ using Ansible🅰️ and Terraform👨‍💻
+# Automated Deployment and Configuration Management of a <img src="https://github.com/devicons/devicon/blob/master/icons/linux/linux-original.svg" title="linuxlinux" alt="linux" width="40" height="40"/>&nbsp; Web Server on <img src="https://github.com/devicons/devicon/blob/master/icons/azure/azure-original.svg" title="azure" alt="azure" width="40" height="40"/>&nbsp;using <img src="https://github.com/devicons/devicon/blob/master/icons/ansible/ansible-original-wordmark.svg"  title="ansibleansible" alt="ansible" width="40" height="40"/>&nbsp; and <img src="https://github.com/devicons/devicon/blob/master/icons/terraform/terraform-original.svg" title="terraform" alt="terraform" width="40" height="40"/>&nbsp;
 
 ## Introduction:
 
