@@ -11,11 +11,11 @@
 ## Architecture:
 The overall architecture of this project consists of three main components:
 
-- Linux VM on Azure: The Linux VM on Azure serves as the primary server for the web application. This VM is provisioned using Terraform, and is configured with all the necessary dependencies and software.
+- **Linux VM on Azure**: The Linux VM on Azure serves as the primary server for the web application. This VM is provisioned using Terraform, and is configured with all the necessary dependencies and software.
 
-- Ansible: Ansible is used as the configuration management tool in this project. It is used to automate tasks and manage the configuration of the Linux VM on Azure. Ansible playbooks are used to define the desired state of the system and apply the necessary changes.
+- **Ansible**: Ansible is used as the configuration management tool in this project. It is used to automate tasks and manage the configuration of the Linux VM on Azure. Ansible playbooks are used to define the desired state of the system and apply the necessary changes.
 
-- Terraform: Terraform is used to provision the Linux VM on Azure. It is used to define the Azure resources required for the system and to automate the process of creating and configuring the resources.
+- **Terraform**: Terraform is used to provision the Linux VM on Azure. It is used to define the Azure resources required for the system and to automate the process of creating and configuring the resources.
 
 The system is designed to be highly available, secure, and easily scalable. Terraform is used to create and manage the infrastructure on Azure and Ansible is used to configure and manage the Linux VM. The system can be easily updated and maintained using the Ansible playbooks.
 
@@ -28,15 +28,15 @@ The Linux VM on Azure is provisioned using Terraform and configured using Ansibl
 ## Tools and Technologies:
 This project uses the following tools and technologies:
 
-1. Ansible: Ansible is an open-source configuration management tool that can be used to automate the deployment and management of software on multiple servers. In this project, Ansible is used to manage the configuration of the Linux VM on Azure.
+1. **Ansible**: Ansible is an open-source configuration management tool that can be used to automate the deployment and management of software on multiple servers. In this project, Ansible is used to manage the configuration of the Linux VM on Azure.
 
-2. Terraform: Terraform is an open-source infrastructure as code software tool that allows to create, manage and provision infrastructure resources through code. In this project, Terraform is used to provision the Linux VM on Azure and manage the infrastructure resources on Azure.
+2. **Terraform**: Terraform is an open-source infrastructure as code software tool that allows to create, manage and provision infrastructure resources through code. In this project, Terraform is used to provision the Linux VM on Azure and manage the infrastructure resources on Azure.
 
-3. Azure: Azure is a cloud computing service created by Microsoft for building, deploying, and managing applications and services through a global network of Microsoft-managed data centers. In this project, Azure is used as the cloud platform to provision the Linux VM and manage the infrastructure resources.
+3. **Azure**: Azure is a cloud computing service created by Microsoft for building, deploying, and managing applications and services through a global network of Microsoft-managed data centers. In this project, Azure is used as the cloud platform to provision the Linux VM and manage the infrastructure resources.
 
-4. Linux: The project uses Linux as the operating system for the virtual machine.
+4. **Linux**: The project uses Linux as the operating system for the virtual machine.
 
-5. Nginx : Nginx is a web server that can also be used as a reverse proxy, load balancer, and HTTP cache. In this project, Nginx is used as the web server.
+5. **Nginx** : Nginx is a web server that can also be used as a reverse proxy, load balancer, and HTTP cache. In this project, Nginx is used as the web server.
 
 These tools and technologies are widely used in the industry and are well-documented, making it easy to find resources and tutorials for learning and troubleshooting.
 
