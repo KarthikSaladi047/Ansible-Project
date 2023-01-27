@@ -238,28 +238,15 @@ playbook.yaml
         name: apache2
         state: started
         enabled: true
-    - name: Open port 80
-      firewalld:
-        service: http
-        state: enabled
-        permanent: true
-    - name: Restart Firewall
-      service:
-        name: firewall
-        state: restarted
   ```
 
-The playbook is divided into several tasks.
+The playbook is divided into 3 tasks.
 
 - The first task installs the Apache web server package using the apt module, which is used to manage packages on Ubuntu and Debian systems.
 
 - The second task copies the contents of a directory called "web-page" to the /var/www/html/ directory on the target host. This is where Apache serves web pages by default.
 
 - The third task uses the service module to start the Apache service and enable it to start automatically at boot time.
-
-- The fourth task opens port 80 on the host's firewall using the firewalld module. It also sets the service to "http" and makes the change permanent.
-
-- The fifth task restarts the firewall service to apply the changes.
 
 ## Execution and Deployment: 
 
