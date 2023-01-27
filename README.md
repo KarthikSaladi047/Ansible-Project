@@ -220,31 +220,37 @@ This is a playbook written in YAML for Ansible. It is used to automate the insta
 
 playbook.yaml
 ```
-  ---
-  - name: Install and configuring Apache web server  
-    hosts: all
-    become: true
-    tasks:
-    - name: Install Apache web server
+---
+- name: Install Apache web server and copy HTML file
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Apache
       apt:
         name: apache2
-        state: latest
-    - name: Copy HTML file to server
-      copy:
-        src: web-page/*
+        state: present
+
+    - name: Copy HTML files to web server
+      synchronize:
+        src: /home/karthik/web-page
         dest: /var/www/html/
-    - name: Enable Apache service
+        owner: www-data
+        group: www-data
+        mode: 'u+rw,g+rw,o+r'
+
+    - name: Start Apache service
       service:
         name: apache2
         state: started
         enabled: true
-  ```
+
+```
 
 The playbook is divided into 3 tasks.
 
 - The first task installs the Apache web server package using the apt module, which is used to manage packages on Ubuntu and Debian systems.
 
-- The second task copies the contents of a directory called "web-page" to the /var/www/html/ directory on the target host. This is where Apache serves web pages by default.
+- The second task copies the contents of a directory called "web-page" to the /var/www/html/ directory on the target host. This is where Apache serves web pages by default and set the ownership and permissions accordingly using owner, group, and mode options.
 
 - The third task uses the service module to start the Apache service and enable it to start automatically at boot time.
 
