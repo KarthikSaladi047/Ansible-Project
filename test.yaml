@@ -1,0 +1,8 @@
+- name: Install and configuring Apache web server  
+    hosts: all
+    become: true
+    tasks:
+    - name: Check Apache status
+      shell: systemctl status apache2
+    - name: curl to check if HTML page is served
+      shell: curl http://localhost

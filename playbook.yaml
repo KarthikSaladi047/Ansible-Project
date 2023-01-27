@@ -1,0 +1,23 @@
+---
+- name: Install Apache web server and copy HTML file
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+
+    - name: Copy HTML files to web server
+      synchronize:
+        src: /home/karthik/web-page
+        dest: /var/www/html/
+        owner: www-data
+        group: www-data
+        mode: 'u+rw,g+rw,o+r'
+
+    - name: Start Apache service
+      service:
+        name: apache2
+        state: started
+        enabled: true

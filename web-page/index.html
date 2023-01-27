@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS only -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <title>Weather API</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-info sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Weather Report</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">about</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
+                Select Place
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" id="delhi" href="#">Delhi</a></li>
+                <li>
+                  <a class="dropdown-item" id="kolkata" href="#">Kolkata</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" id="mumbai" href="#">Mumbai</a>
+                </li>
+                <li><a class="dropdown-item" id="kochi" href="#">kochi</a></li>
+                <li>
+                  <a class="dropdown-item" id="hyderabad" href="#">hyderabad</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <form class="d-flex" id="form1" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              id="searchInput"
+            />
+            <button class="btn btn-outline-success" id="btns" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <main class="container">
+      <div class="p-4 p-md-5 mb-4 rounded text-bg-dark">
+        <div class="col-md-6 px-0">
+          <h1 class="display-4 fst-italic">The weather API</h1>
+          <p class="lead my-3">
+            Find out the latest weather report of your place or your destination
+            place and make your plans go smooth and carry the lagguage according
+            to the weather report
+          </p>
+          <p class="lead mb-0">
+            <a href="#" class="text-white fw-bold">Continue reading...</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <div class="card" style="width: 36rem">
+            <img
+              src="./images/choose.jfif"
+              class="card-img-top img"
+              alt="..."
+            />
+            <div class="card-body">
+              <h5 class="card-title">Choosen Loaction</h5>
+              <p class="card-text">
+                Your Choosen Location is <i id="current1"></i>
+              </p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                Cloud_pct
+                <p class="details1"></p>
+              </li>
+              <li class="list-group-item">
+                Temp
+                <p class="details1"></p>
+              </li>
+              <li class="list-group-item">
+                Feels_like
+                <p class="details1"></p>
+              </li>
+              <li class="list-group-item">
+                Humidity
+                <p class="details1"></p>
+              </li>
+              <li class="list-group-item">
+                Min_temp
+                <p class="details1"></p>
+              </li>
+              <li class="list-group-item">
+                Max_temp
+                <p class="details1"></p>
+              </li>
+              <li class="list-group-item">
+                Wind_speed
+                <p class="details1"></p>
+              </li>
+              <li class="list-group-item">
+                Wind_degrees
+                <p class="details1"></p>
+              </li>
+              <li class="list-group-item">
+                Sunrise
+                <p class="details1"></p>
+              </li>
+              <li class="list-group-item">
+                Sunset
+                <p class="details1"></p>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card" style="width: 36rem">
+            <img src="./images/delhi.jfif" class="card-img-top img" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">Current Loaction</h5>
+              <p class="card-text">
+                Your Current Location is <i id="current2"></i>
+              </p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                Cloud_pct
+                <p class="details2"></p>
+              </li>
+              <li class="list-group-item">
+                Temp
+                <p class="details2"></p>
+              </li>
+              <li class="list-group-item">
+                Feels_like
+                <p class="details2"></p>
+              </li>
+              <li class="list-group-item">
+                Humidity
+                <p class="details2"></p>
+              </li>
+              <li class="list-group-item">
+                Min_temp
+                <p class="details2"></p>
+              </li>
+              <li class="list-group-item">
+                Max_temp
+                <p class="details2"></p>
+              </li>
+              <li class="list-group-item">
+                Wind_speed
+                <p class="details2"></p>
+              </li>
+              <li class="list-group-item">
+                Wind_degrees
+                <p class="details2"></p>
+              </li>
+              <li class="list-group-item">
+                Sunrise
+                <p class="details2"></p>
+              </li>
+              <li class="list-group-item">
+                Sunset
+                <p class="details2"></p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-5">
+        <div class="col-md-8">
+          <article class="blog-post">
+            <h2 class="blog-post-title mb-1">More about Weather App</h2>
+            <p class="blog-post-meta">
+              December 18, 2022 by <a href="#">Karthik Saladi</a>
+            </p>
+
+            <p>
+              The Weather App fetches the weather data in smoooth way of your
+              desired location and displays in this site.people often uses this
+              information to plan their trips and vacations to new places ,
+              beacause any place dont have same weather conditions throught the
+              year .so weather app really help in solving this issue by give
+              right weather report and hope the clients plan according to the
+              report.
+            </p>
+            <h3>Weather table</h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Max Temp</th>
+                  <th>Min Temp</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="one">
+                  <td>Alice</td>
+                  <td>10</td>
+                  <td>11</td>
+                </tr>
+                <tr id="two">
+                  <td>Bob</td>
+                  <td>4</td>
+                  <td>3</td>
+                </tr>
+                <tr id="three">
+                  <td>Charlie</td>
+                  <td>7</td>
+                  <td>9</td>
+                </tr>
+                <tr id="four">
+                  <td>Totals</td>
+                  <td>21</td>
+                  <td>23</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p>
+              This is table content is showing values for current date and time.
+            </p>
+          </article>
+        </div>
+
+        <div class="col-md-4">
+          <div class="position-sticky" style="top: 2rem">
+            <div class="p-4 mb-3 bg-light rounded">
+              <h4 class="fst-italic">About</h4>
+              <p class="mb-0">
+                Weather App provides the weather report of various places and
+                helps in planning vacations.Weather app incredible easy to use
+                and accurate to belive.
+              </p>
+            </div>
+
+            <div class="p-4">
+              <h4 class="fst-italic">Elsewhere</h4>
+              <ol class="list-unstyled">
+                <li><a href="#">GitHub</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Facebook</a></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>
