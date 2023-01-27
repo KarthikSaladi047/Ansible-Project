@@ -56,6 +56,8 @@ These tools and technologies are widely used in the industry and are well-docume
   ```
 ## Provisioning a Linux VM on Azure using Terraform:
 This is a Terraform configuration file that creates resources in Azure using the Azure Resource Manager (azurerm) provider. The resources being created include a resource group, virtual network, subnet, network security group, public IP, network interface, and a Linux virtual machine.
+
+main.tf
   ```
   terraform {
     required_providers {
@@ -266,6 +268,7 @@ Once the necessary tools, dependencies, and configuration files have been set up
 
 ✔️ **Verify the deployment**: After the HTML page has been deployed, the deployment can be verified by accessing the page on a web browser and ensuring that it is displayed correctly or We can execute following ansible playbook.
 
+  test.yaml
   ```
   - name: Install and configuring Apache web server  
       hosts: all
