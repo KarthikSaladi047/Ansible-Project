@@ -232,7 +232,7 @@ playbook.yaml
 
     - name: Copy HTML files to web server
       synchronize:
-        src: /home/karthik/web-page
+        src: /path/to/web-page
         dest: /var/www/html/
         owner: www-data
         group: www-data
