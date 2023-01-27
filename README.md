@@ -21,7 +21,7 @@ The system is designed to be highly available, secure, and easily scalable. Terr
 
 The following diagram illustrates the architecture of the system:
 
-
+![ansible project](https://user-images.githubusercontent.com/105864615/215081294-90b126d0-1f47-4ecc-b29a-35edc5af688d.jpg)
 
 The Linux VM on Azure is provisioned using Terraform and configured using Ansible. The system can be easily updated and maintained using the Ansible playbooks.
 
