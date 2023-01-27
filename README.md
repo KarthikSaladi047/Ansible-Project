@@ -264,13 +264,13 @@ The playbook is divided into several tasks.
 
 Once the necessary tools, dependencies, and configuration files have been set up and configured, the project can be executed and deployed. The following are the steps to be followed for execution and deployment:
 
-- **Provision the Linux VM on Azure**: The Linux VM on Azure can be provisioned using Terraform by running the **terraform apply** command. This command will create the necessary resources on Azure according to the Terraform configuration files.
+💻 **Provision the Linux VM on Azure**: The Linux VM on Azure can be provisioned using Terraform by running the **terraform apply** command. This command will create the necessary resources on Azure according to the Terraform configuration files.
 
-- **Execute the Ansible playbooks**: After the Linux VM on Azure has been provisioned, the Ansible playbooks can be executed by running the ansible-playbook command, which is done by terraform as part of excution of null_resource. The playbooks will be executed on the target host and will configure the Linux VM according to the desired state defined in the playbooks.
+📄 **Execute the Ansible playbooks**: After the Linux VM on Azure has been provisioned, the Ansible playbooks can be executed by running the ansible-playbook command, which is done by terraform as part of excution of null_resource. The playbooks will be executed on the target host and will configure the Linux VM according to the desired state defined in the playbooks.
 
-- **Deploy the HTML page**: Once the Web server has been configured, the HTML page can be deployed on top of apache web server by copying the necessary files to the appropriate location on the Linux VM.
+🌐 **Deploy the HTML page**: Once the Web server has been configured, the HTML page can be deployed on top of apache web server by copying the necessary files to the appropriate location on the Linux VM.
 
-- **Verify the deployment**: After the HTML page has been deployed, the deployment can be verified by accessing the page on a web browser and ensuring that it is displayed correctly or We can execute following ansible playbook.
+✔️ **Verify the deployment**: After the HTML page has been deployed, the deployment can be verified by accessing the page on a web browser and ensuring that it is displayed correctly or We can execute following ansible playbook.
 
   ```
   - name: Install and configuring Apache web server  
@@ -283,33 +283,33 @@ Once the necessary tools, dependencies, and configuration files have been set up
         shell: curl http://localhost
   ```
 
-- **Update and maintain the system**: The system can be easily updated and maintained by running the appropriate Terraform and Ansible commands. This allows for easy scaling and updating of the system.
+🛠️ **Update and maintain the system**: The system can be easily updated and maintained by running the appropriate Terraform and Ansible commands. This allows for easy scaling and updating of the system.
 
 ## Maintenance and Updates: 
 
 Once the project is deployed, it will require regular maintenance and updates to ensure that it remains secure, stable, and up-to-date. The following are some steps that should be taken to maintain and update the project:
 
-- **Monitor the system**: Regularly monitor the system to ensure that it is running smoothly and to identify any potential issues. This can be done using built-in monitoring tools or third-party monitoring solutions.
+👨‍🔧 **Monitor the system**: Regularly monitor the system to ensure that it is running smoothly and to identify any potential issues. This can be done using built-in monitoring tools or third-party monitoring solutions.
 
-- **Apply security patches and updates**: Regularly apply security patches and updates to the Linux VM, Apache, and other components of the system to ensure that it remains secure.
+👨‍🔧 **Apply security patches and updates**: Regularly apply security patches and updates to the Linux VM, Apache, and other components of the system to ensure that it remains secure.
 
-- **Update and maintain the infrastructure**: Regularly update and maintain the infrastructure by updating the Terraform configuration files and running the appropriate Terraform commands. This allows for easy scaling and updating of the system.
+👨‍🔧 **Update and maintain the infrastructure**: Regularly update and maintain the infrastructure by updating the Terraform configuration files and running the appropriate Terraform commands. This allows for easy scaling and updating of the system.
 
-- **Update and maintain the configuration**: Regularly update and maintain the configuration by updating the Ansible playbooks and running the appropriate Ansible commands. This allows for easy scaling and updating of the system.
+👨‍🔧 **Update and maintain the configuration**: Regularly update and maintain the configuration by updating the Ansible playbooks and running the appropriate Ansible commands. This allows for easy scaling and updating of the system.
 
 ## Troubleshooting:
 
 Despite the best efforts to plan, design and test, issues can still occur in the deployed system. Below are some steps that can be taken to troubleshoot issues with the project:
 
-- **Check the logs**: The first step in troubleshooting is to check the logs of the system. This can provide valuable information about the issue and help identify the root cause.
+🕵️ **Check the logs**: The first step in troubleshooting is to check the logs of the system. This can provide valuable information about the issue and help identify the root cause.
 
-- **Check the Configuration**: Check the configuration of the system, including the Terraform and Ansible configuration files, to ensure that they are correct and that all necessary dependencies are installed.
+🕵️ **Check the Configuration**: Check the configuration of the system, including the Terraform and Ansible configuration files, to ensure that they are correct and that all necessary dependencies are installed.
 
-- **Check the network**: Check the network connections to ensure that all necessary ports are open and that there are no firewalls blocking traffic.
+🕵️ **Check the network**: Check the network connections to ensure that all necessary ports are open and that there are no firewalls blocking traffic.
 
-- **Check the dependencies**: Ensure that all necessary dependencies are installed and that they are the correct version.
+🕵️ **Check the dependencies**: Ensure that all necessary dependencies are installed and that they are the correct version.
 
-- **Run the appropriate commands**: Run the appropriate Terraform and Ansible commands to ensure that the system is in the desired state.
+🕵️ **Run the appropriate commands**: Run the appropriate Terraform and Ansible commands to ensure that the system is in the desired state.
 
 - Revert to a previous state: If the issue cannot be resolved, it may be necessary to revert the system to a previous state. This can be done by re-provisioning the system using Terraform.
 
@@ -321,4 +321,4 @@ I've highlighted the importance of planning, designing, testing, and documenting
 
 I've also discussed the importance of troubleshooting and seeking for help when necessary.
 
-**Overall, the use of configuration management tools like Ansible and infrastructure provisioning tools like Terraform can greatly simplify the process of building and maintaining complex systems, and can make it easier to scale and update the systems as needed.**
+**Overall🔥, the use of configuration management tools like Ansible and infrastructure provisioning tools like Terraform can greatly👑 simplify the process of building and maintaining complex systems, and can make it easier to scale and update the systems as needed.**
