@@ -215,6 +215,8 @@ This is a Terraform configuration file that creates resources in Azure using the
 - There is also a null_resource named "ansible" that runs an ansible-playbook command on the local machine that connects to the virtual machine using the public IP address, the private key and a playbook file named "playbook.yaml"
 
 ## Configuration Management using Ansible:
+
+playbook.yaml
 ```
   ---
   - name: Install and configuring Apache web server  
@@ -243,10 +245,6 @@ This is a Terraform configuration file that creates resources in Azure using the
       service:
         name: firewall
         state: restarted
-    - name: Check Apache status
-        shell: systemctl status apache2
-    - name: curl to check if HTML page is served
-        shell: curl http://localhost
   ```
 This is a playbook written in YAML for Ansible. It is used to automate the installation and configuration of Apache web server on a target host or hosts.
 
@@ -262,14 +260,65 @@ The playbook is divided into several tasks.
 
 - The fifth task restarts the firewall service to apply the changes.
 
-- The sixth task uses the shell module to check the status of the Apache service.
-
-- The seventh task uses the shell module to check if the HTML page is served properly by curling to localhost.
-
 ## Execution and Deployment: 
+
+Once the necessary tools, dependencies, and configuration files have been set up and configured, the project can be executed and deployed. The following are the steps to be followed for execution and deployment:
+
+- **Provision the Linux VM on Azure**: The Linux VM on Azure can be provisioned using Terraform by running the **terraform apply** command. This command will create the necessary resources on Azure according to the Terraform configuration files.
+
+- **Execute the Ansible playbooks**: After the Linux VM on Azure has been provisioned, the Ansible playbooks can be executed by running the ansible-playbook command, which is done by terraform as part of excution of null_resource. The playbooks will be executed on the target host and will configure the Linux VM according to the desired state defined in the playbooks.
+
+- **Deploy the HTML page**: Once the Web server has been configured, the HTML page can be deployed on top of apache web server by copying the necessary files to the appropriate location on the Linux VM.
+
+- **Verify the deployment**: After the HTML page has been deployed, the deployment can be verified by accessing the page on a web browser and ensuring that it is displayed correctly or We can execute following ansible playbook.
+
+  ```
+  - name: Install and configuring Apache web server  
+      hosts: all
+      become: true
+      tasks:
+      - name: Check Apache status
+        shell: systemctl status apache2
+      - name: curl to check if HTML page is served
+        shell: curl http://localhost
+  ```
+
+- **Update and maintain the system**: The system can be easily updated and maintained by running the appropriate Terraform and Ansible commands. This allows for easy scaling and updating of the system.
 
 ## Maintenance and Updates: 
 
+Once the project is deployed, it will require regular maintenance and updates to ensure that it remains secure, stable, and up-to-date. The following are some steps that should be taken to maintain and update the project:
+
+- **Monitor the system**: Regularly monitor the system to ensure that it is running smoothly and to identify any potential issues. This can be done using built-in monitoring tools or third-party monitoring solutions.
+
+- **Apply security patches and updates**: Regularly apply security patches and updates to the Linux VM, Apache, and other components of the system to ensure that it remains secure.
+
+- **Update and maintain the infrastructure**: Regularly update and maintain the infrastructure by updating the Terraform configuration files and running the appropriate Terraform commands. This allows for easy scaling and updating of the system.
+
+- **Update and maintain the configuration**: Regularly update and maintain the configuration by updating the Ansible playbooks and running the appropriate Ansible commands. This allows for easy scaling and updating of the system.
+
 ## Troubleshooting:
 
+Despite the best efforts to plan, design and test, issues can still occur in the deployed system. Below are some steps that can be taken to troubleshoot issues with the project:
+
+- **Check the logs**: The first step in troubleshooting is to check the logs of the system. This can provide valuable information about the issue and help identify the root cause.
+
+- **Check the Configuration**: Check the configuration of the system, including the Terraform and Ansible configuration files, to ensure that they are correct and that all necessary dependencies are installed.
+
+- **Check the network**: Check the network connections to ensure that all necessary ports are open and that there are no firewalls blocking traffic.
+
+- **Check the dependencies**: Ensure that all necessary dependencies are installed and that they are the correct version.
+
+- **Run the appropriate commands**: Run the appropriate Terraform and Ansible commands to ensure that the system is in the desired state.
+
+- Revert to a previous state: If the issue cannot be resolved, it may be necessary to revert the system to a previous state. This can be done by re-provisioning the system using Terraform.
+
 ## Conclusion:
+
+In this project, I have demonstrated how to build a configuration management system using Ansible and provision a Linux VM on Azure using Terraform. I have also shown how to deploy a simple HTML page on top of an apache server running on the Linux VM. This project can serve as a starting point for building more complex and sophisticated systems.
+
+I've highlighted the importance of planning, designing, testing, and documenting the project, as well as the importance of regular maintenance and updates to ensure that the system remains secure, stable, and up-to-date.
+
+I've also discussed the importance of troubleshooting and seeking for help when necessary.
+
+**Overall, the use of configuration management tools like Ansible and infrastructure provisioning tools like Terraform can greatly simplify the process of building and maintaining complex systems, and can make it easier to scale and update the systems as needed.**
