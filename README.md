@@ -305,14 +305,12 @@ Despite the best efforts to plan, design and test, issues can still occur in the
 
 🕵️ **Run the appropriate commands**: Run the appropriate Terraform and Ansible commands to ensure that the system is in the desired state.
 
-- Revert to a previous state: If the issue cannot be resolved, it may be necessary to revert the system to a previous state. This can be done by re-provisioning the system using Terraform.
+🕵️ **Revert to a previous state**: If the issue cannot be resolved, it may be necessary to revert the system to a previous state. This can be done by re-provisioning the system using Terraform.
 
 ## Conclusion:
 
 In this project, I have demonstrated how to build a configuration management system using Ansible and provision a Linux VM on Azure using Terraform. I have also shown how to deploy a simple HTML page on top of an apache server running on the Linux VM. This project can serve as a starting point for building more complex and sophisticated systems.
 
-I've highlighted the importance of planning, designing, testing, and documenting the project, as well as the importance of regular maintenance and updates to ensure that the system remains secure, stable, and up-to-date.
-
-I've also discussed the importance of troubleshooting and seeking for help when necessary.
+I've highlighted the importance of planning, designing, testing, and documenting the project, as well as the importance of regular maintenance and updates to ensure that the system remains secure, stable, and up-to-date. I've also discussed the importance of troubleshooting.
 
 **Overall🔥, the use of configuration management tools like Ansible and infrastructure provisioning tools like Terraform can greatly👑 simplify the process of building and maintaining complex systems, and can make it easier to scale and update the systems as needed.**
