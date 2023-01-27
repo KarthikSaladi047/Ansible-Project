@@ -260,7 +260,7 @@ The playbook is divided into 3 tasks.
 
 Once the necessary tools, dependencies, and configuration files have been set up and configured, the project can be executed and deployed. The following are the steps to be followed for execution and deployment:
 
-💻 **Provision the Linux VM on Azure**: The Linux VM on Azure can be provisioned using Terraform by running the **terraform apply** command. This command will create the necessary resources on Azure according to the Terraform configuration files.
+💻 **Provision the Linux VM on Azure**: We need to  run the **terraform init** command to initialize Terraform and download the necessary provider plugins. Then the Linux VM on Azure can be provisioned using Terraform by running the **terraform apply** command. This command will create the necessary resources on Azure according to the Terraform configuration files.
 
 📄 **Execute the Ansible playbooks**: After the Linux VM on Azure has been provisioned, the Ansible playbooks can be executed by running the ansible-playbook command, which is done by terraform as part of excution of null_resource. The playbooks will be executed on the target host and will configure the Linux VM according to the desired state defined in the playbooks.
 
