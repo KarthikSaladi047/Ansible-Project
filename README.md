@@ -216,6 +216,8 @@ This is a Terraform configuration file that creates resources in Azure using the
 
 ## Configuration Management using Ansible:
 
+This is a playbook written in YAML for Ansible. It is used to automate the installation and configuration of Apache web server on a target host or hosts.
+
 playbook.yaml
 ```
   ---
@@ -246,7 +248,6 @@ playbook.yaml
         name: firewall
         state: restarted
   ```
-This is a playbook written in YAML for Ansible. It is used to automate the installation and configuration of Apache web server on a target host or hosts.
 
 The playbook is divided into several tasks.
 
